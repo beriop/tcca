@@ -17,9 +17,10 @@ export default function Login() {
         </div>
         <div class="or">ou</div>
         <div class="login-form">
+          <input placeholder="CPF" type="text" />
           <input placeholder="Email" type="text" />
           <input placeholder="Senha" type="password" />
-          <div class="forgot-password">Esqueceu sua senha?</div>
+          <a class="forgot-password">Esqueceu sua senha?</a>
           <button class="login-button">Entrar</button>
         </div>
       </div>
