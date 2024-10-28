@@ -7,7 +7,7 @@ import "./index.scss";
 
 export default function Cadastrar() {
   const [nome, setNome] = useState("");
-  const [dtNascimento, setDtNascimento] = useState(""); // Adicionei um estado para a data de nascimento
+  const [dtNascimento, setDtNascimento] = useState("");
   const [cpf, setCpf] = useState("");
   const [celular, setCelular] = useState("");
   const [email, setEmail] = useState("");
@@ -27,9 +27,9 @@ export default function Cadastrar() {
 
     const dadosCadastro = {
       nome,
-      dt_nascimento: dtNascimento, // Incluindo a data de nascimento
+      dt_nascimento: dtNascimento,
       cpf,
-      celular,
+      nm_celular: celular, // Ajustando o nome do campo celular para 'nm_celular'
       email,
       sexo,
       senha,
@@ -65,7 +65,7 @@ export default function Cadastrar() {
           <input
             type="date"
             value={dtNascimento}
-            onChange={(e) => setDtNascimento(e.target.value)} // Atualizando o estado da data de nascimento
+            onChange={(e) => setDtNascimento(e.target.value)}
             required
           />
         </div>
@@ -83,7 +83,7 @@ export default function Cadastrar() {
           <PhoneInput
             defaultCountry="br"
             value={celular}
-            onChange={(phone) => setCelular(phone)}
+            onChange={(phone) => setCelular(phone)} // Garantindo que o valor do número de celular seja atualizado
             required
           />
         </div>
