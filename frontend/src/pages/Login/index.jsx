@@ -23,31 +23,7 @@ export default function Login() {
           <button class="login-button">Entrar</button>
         </div>
       </div>
-      <div class="footer">
-        <div>
-          <span>HAYAN</span>
-        </div>
-        <div>
-          <span>Serviços:</span>
-          Consultas
-        </div>
-        <div>
-          <span>Clínica:</span>
-          Profissionais
-        </div>
-        <div>
-          <span>Sobre a desenvolvedora:</span>
-          Quem somos
-        </div>
-        <div>
-          <span>Ajuda:</span>
-          Ajuda (FAQ)
-          <br />
-          Ajuda Whatsapp
-          <br />
-          Termos de uso
-        </div>
-      </div>
+
     </div>
   );
 }

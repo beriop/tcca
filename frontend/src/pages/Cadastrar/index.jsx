@@ -144,30 +144,6 @@ export default function Cadastrar() {
         </button>
       </form>
 
-      <footer className="rodape">
-        <div className="grade-rodape">
-          <div className="item-rodape">
-            <h3>Serviços</h3>
-            <Link to="#inicio">Consultas</Link>
-          </div>
-          <div className="item-rodape">
-            <h3>Clínica</h3>
-            <Link to="#profissionais">Profissionais</Link>
-          </div>
-          <div className="item-rodape">
-            <h3>Sobre a desenvolvedora</h3>
-            <Link to="/sobre">Quem somos</Link>
-          </div>
-          <div className="item-rodape">
-            <h3>Ajuda</h3>
-            <Link to="/faq">Ajuda (FAQ)</Link>
-            <a href="https://whatsapp.com/channel/0029Vagr93P2kNFvuR2bQQ11">
-              Ajuda WhatsApp
-            </a>
-            <Link to="/termos-telemedicina">Termos de Telemedicina</Link>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
