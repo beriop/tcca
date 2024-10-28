@@ -1,6 +1,6 @@
 import { autenticar } from '../utils/jwt.js';
-import * as db from '../repository/agendamentoRepository.js'; // Novo repositório para agendamentos
-import { Router } from "express";
+import * as db from '../repository/agendamentoRepository.js';
+import { Router } from 'express';
 
 const endpoints = Router();
 
@@ -9,11 +9,9 @@ endpoints.get('/agendamentos', autenticar, async (req, resp) => {
     try {
         const idUsuario = req.user.id;
         const registros = await db.consultarAgendamentos(idUsuario);
-        resp.send(registros);
+        resp.json(registros);
     } catch (err) {
-        resp.status(400).send({
-            erro: err.message
-        });
+        resp.status(400).json({ erro: err.message });
     }
 });
 
@@ -23,29 +21,23 @@ endpoints.get('/agendamentos/:id', autenticar, async (req, resp) => {
         const id = req.params.id;
         const registro = await db.consultarAgendamentoPorId(id);
         if (registro) {
-            resp.send(registro);
+            resp.json(registro);
         } else {
-            resp.status(404).send({ erro: 'Agendamento não encontrado' });
+            resp.status(404).json({ erro: 'Agendamento não encontrado' });
         }
     } catch (err) {
-        resp.status(400).send({
-            erro: err.message
-        });
+        resp.status(400).json({ erro: err.message });
     }
 });
 
 // Criar um novo agendamento
 endpoints.post('/agendamentos', autenticar, async (req, resp) => {
     try {
-        const agendamento = req.body;
-        agendamento.idUsuario = req.user.id; // Associar o agendamento ao usuário logado
-
+        const agendamento = { ...req.body, idUsuario: req.user.id }; // Associar o agendamento ao usuário logado
         const id = await db.inserirAgendamento(agendamento);
-        resp.send({ novoId: id });
+        resp.status(201).json({ novoId: id });
     } catch (err) {
-        resp.status(400).send({
-            erro: err.message
-        });
+        resp.status(400).json({ erro: err.message });
     }
 });
 
@@ -54,17 +46,15 @@ endpoints.put('/agendamentos/:id', autenticar, async (req, resp) => {
     try {
         const id = req.params.id;
         const agendamento = req.body;
-
         const linhasAfetadas = await db.alterarAgendamento(id, agendamento);
-        if (linhasAfetadas >= 1) {
-            resp.send();
+        
+        if (linhasAfetadas > 0) {
+            resp.sendStatus(204); // No Content
         } else {
-            resp.status(404).send({ erro: 'Nenhum registro encontrado' });
+            resp.status(404).json({ erro: 'Nenhum registro encontrado' });
         }
     } catch (err) {
-        resp.status(400).send({
-            erro: err.message
-        });
+        resp.status(400).json({ erro: err.message });
     }
 });
 
@@ -72,17 +62,15 @@ endpoints.put('/agendamentos/:id', autenticar, async (req, resp) => {
 endpoints.delete('/agendamentos/:id', autenticar, async (req, resp) => {
     try {
         const id = req.params.id;
-
         const linhasAfetadas = await db.removerAgendamento(id);
-        if (linhasAfetadas >= 1) {
-            resp.send();
+        
+        if (linhasAfetadas > 0) {
+            resp.sendStatus(204); // No Content
         } else {
-            resp.status(404).send({ erro: 'Nenhum registro encontrado' });
+            resp.status(404).json({ erro: 'Nenhum registro encontrado' });
         }
     } catch (err) {
-        resp.status(400).send({
-            erro: err.message
-        });
+        resp.status(400).json({ erro: err.message });
     }
 });
 

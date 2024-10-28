@@ -1,12 +1,13 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { PhoneInput } from "react-international-phone";
+import axios from 'axios';
 import "react-international-phone/style.css";
 import "./index.scss";
 
 export default function Cadastrar() {
   const [nome, setNome] = useState("");
-  const [idade, setIdade] = useState("");
+  const [dtNascimento, setDtNascimento] = useState(""); // Adicionei um estado para a data de nascimento
   const [cpf, setCpf] = useState("");
   const [celular, setCelular] = useState("");
   const [email, setEmail] = useState("");
@@ -14,17 +15,19 @@ export default function Cadastrar() {
   const [senha, setSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [aceitoTermos, setAceitoTermos] = useState(false);
-
   const navigate = useNavigate();
 
-  // Função para salvar os dados do cadastro
-  const salvarCadastro = (e) => {
-    e.preventDefault(); // Previne o comportamento padrão do formulário
+  const salvarCadastro = async (e) => {
+    e.preventDefault();
 
-    // Aqui você pode adicionar a lógica para enviar os dados para o servidor
+    if (senha !== confirmarSenha) {
+      alert("As senhas não coincidem.");
+      return;
+    }
+
     const dadosCadastro = {
       nome,
-      idade,
+      dt_nascimento: dtNascimento, // Incluindo a data de nascimento
       cpf,
       celular,
       email,
@@ -32,17 +35,14 @@ export default function Cadastrar() {
       senha,
     };
 
-    console.log(dadosCadastro); // Apenas para visualização no console
-
-    // Navegar para outra página após o cadastro
-    navigate("/"); // Redireciona para a página inicial após o cadastro
+    try {
+      const response = await axios.post('http://localhost:5010/usuario', dadosCadastro);
+      alert('Cadastro realizado com sucesso! ID do novo usuário: ' + response.data.novoId);
+      navigate("/"); 
+    } catch (error) {
+      alert('Erro ao cadastrar: ' + (error.response?.data?.erro || 'Erro desconhecido'));
+    }
   };
-
-  // Referências para as seções
-  const informacoesRef = useRef(null);
-  const beneficiosRef = useRef(null);
-  const contatoRef = useRef(null);
-
 
   return (
     <div className="container">
@@ -61,12 +61,11 @@ export default function Cadastrar() {
           />
         </div>
         <div className="grupo-formulario">
-          <label>Qual sua idade</label>
+          <label>Data de Nascimento</label>
           <input
             type="date"
-            placeholder="Idade"
-            value={idade}
-            onChange={(e) => setIdade(e.target.value)}
+            value={dtNascimento}
+            onChange={(e) => setDtNascimento(e.target.value)} // Atualizando o estado da data de nascimento
             required
           />
         </div>
@@ -82,7 +81,7 @@ export default function Cadastrar() {
         <div className="grupo-formulario">
           <label>Qual seu número</label>
           <PhoneInput
-            defaultCountry="br" // Altere para o código de país desejado
+            defaultCountry="br"
             value={celular}
             onChange={(phone) => setCelular(phone)}
             required
@@ -104,6 +103,7 @@ export default function Cadastrar() {
             onChange={(e) => setSexo(e.target.value)}
             required
           >
+            <option value="">Selecione</option>
             <option value="masculino">Masculino</option>
             <option value="feminino">Feminino</option>
           </select>
@@ -143,7 +143,6 @@ export default function Cadastrar() {
           Cadastrar
         </button>
       </form>
-
     </div>
   );
 }

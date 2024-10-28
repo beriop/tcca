@@ -1,80 +1,66 @@
-import con from "./connection.js";
+import con from './connection.js';
 
 // Função para inserir um novo agendamento
 export async function inserirAgendamento(agendamento) {
     const comando = `
-        insert into tb_agendamentos (categoria, procedimento, data, id_usuario) 
-        values (?, ?, ?, ?)
-    `;
+        INSERT INTO tb_agendamentos (categoria, procedimento, data, id_usuario) 
+        VALUES (?, ?, ?, ?)`;
     
-    let resposta = await con.query(comando, [agendamento.categoria, agendamento.procedimento, agendamento.data, agendamento.idUsuario]);
-    let info = resposta[0];
+    const [resposta] = await con.query(comando, [
+        agendamento.categoria,
+        agendamento.procedimento,
+        agendamento.data,
+        agendamento.idUsuario,
+    ]);
     
-    return info.insertId;
+    return resposta.insertId;
 }
 
 // Função para consultar todos os agendamentos de um usuário
 export async function consultarAgendamentos(idUsuario) {
     const comando = `
-        select id_agendamentos as id,
-               categoria,
-               procedimento,
-               data,
-               id_usuario 
-        from tb_agendamentos
-        where id_usuario = ?
-    `;
-
-    let resposta = await con.query(comando, [idUsuario]);
-    let registros = resposta[0];
-
+        SELECT id_agendamentos AS id, categoria, procedimento, data 
+        FROM tb_agendamentos 
+        WHERE id_usuario = ?`;
+    
+    const [registros] = await con.query(comando, [idUsuario]);
     return registros;
 }
 
 // Função para consultar um agendamento específico por ID
 export async function consultarAgendamentoPorId(id) {
     const comando = `
-        select id_agendamentos as id,
-               categoria,
-               procedimento,
-               data,
-               id_usuario
-        from tb_agendamentos
-        where id_agendamentos = ?
-    `;
+        SELECT id_agendamentos AS id, categoria, procedimento, data 
+        FROM tb_agendamentos 
+        WHERE id_agendamentos = ?`;
 
-    let resposta = await con.query(comando, [id]);
-    let registros = resposta[0];
-
+    const [registros] = await con.query(comando, [id]);
     return registros.length > 0 ? registros[0] : null; // Retorna null se não encontrar
 }
 
 // Função para atualizar um agendamento
 export async function alterarAgendamento(id, agendamento) {
     const comando = `
-        update tb_agendamentos 
-        set categoria = ?, 
-            procedimento = ?, 
-            data = ?, 
-            id_usuario = ?
-        where id_agendamentos = ?;
-    `;
-
-    let resposta = await con.query(comando, [agendamento.categoria, agendamento.procedimento, agendamento.data, agendamento.idUsuario, id]);
-    let info = resposta[0];
-
-    return info.affectedRows;
+        UPDATE tb_agendamentos 
+        SET categoria = ?, procedimento = ?, data = ? 
+        WHERE id_agendamentos = ?`;
+    
+    const [resposta] = await con.query(comando, [
+        agendamento.categoria,
+        agendamento.procedimento,
+        agendamento.data,
+        id,
+    ]);
+    
+    return resposta.affectedRows;
 }
 
 // Função para remover um agendamento
 export async function removerAgendamento(id) {
     const comando = `
-        delete from tb_agendamentos 
-        where id_agendamentos = ?
-    `;
-
-    let resposta = await con.query(comando, [id]);
-    let info = resposta[0];
-
-    return info.affectedRows;
+        DELETE FROM tb_agendamentos 
+        WHERE id_agendamentos = ?`;
+    
+    const [resposta] = await con.query(comando, [id]);
+    return resposta.affectedRows;
 }

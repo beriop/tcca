@@ -1,52 +1,33 @@
-
 import { gerarToken } from '../utils/jwt.js';
-
 import * as db from '../repository/usuarioRepository.js';
+import { Router } from 'express';
 
-import { Router } from "express";
 const endpoints = Router();
 
-
-endpoints.post('/entrar/', async (req, resp) => {
+endpoints.post('/entrar', async (req, resp) => {
     try {
-        let pessoa = req.body;
+        const pessoa = req.body;
+        const usuario = await db.validarUsuario(pessoa);
 
-        let usuario = await db.validarUsuario(pessoa);
-
-        if (usuario == null) {
-            resp.send({ erro: "Usuário ou senha incorreto(s)" })
-        } else {
-            let token = gerarToken(usuario);
-            resp.send({
-                "token": token
-            })
+        if (!usuario) {
+            return resp.status(401).json({ erro: "Usuário ou senha incorretos" });
         }
-    }
-    catch (err) {
-        resp.status(400).send({
-            erro: err.message
-        })
-    }
-})
 
+        const token = gerarToken(usuario);
+        resp.json({ token });
+    } catch (err) {
+        resp.status(400).json({ erro: err.message });
+    }
+});
 
-endpoints.post('/usuario/', async (req, resp) => {
+endpoints.post('/usuario', async (req, resp) => {
     try {
-        let pessoa = req.body;
-
-        let id = await db.inserirUsuario(pessoa);
-
-        resp.send({
-            novoId: id
-        })
+        const pessoa = req.body;
+        const id = await db.inserirUsuario(pessoa);
+        resp.status(201).json({ novoId: id });
+    } catch (err) {
+        resp.status(400).json({ erro: err.message });
     }
-    catch (err) {
-        resp.status(400).send({
-            erro: err.message
-        })
-    }
-})
-
-
+});
 
 export default endpoints;
