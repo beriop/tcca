@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { PhoneInput } from "react-international-phone";
-import axios from 'axios';
+import { cpf as cpfValidator } from "cpf-cnpj-validator";
+import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
 import "react-international-phone/style.css";
 import "./index.scss";
 
@@ -20,36 +22,49 @@ export default function Cadastrar() {
   const salvarCadastro = async (e) => {
     e.preventDefault();
 
+    const cpfLimpo = cpf.replace(/\D/g, ""); // Remove caracteres não numéricos
+
+    if (!cpfValidator.isValid(cpfLimpo)) {
+      toast.error("CPF inválido!");
+      return;
+    }
+
     if (senha !== confirmarSenha) {
-      alert("As senhas não coincidem.");
+      toast.error("As senhas não coincidem.");
       return;
     }
 
     const dadosCadastro = {
       nome,
-      dt_nascimento: dtNascimento,
-      cpf,
-      nm_celular: celular, // Ajustando o nome do campo celular para 'nm_celular'
+      dtNascimento,
+      cpf: cpfLimpo, // Usando o CPF limpo
+      nm_celular: celular,
       email,
       sexo,
       senha,
     };
 
     try {
-      const response = await axios.post('http://localhost:5010/usuario', dadosCadastro);
-      alert('Cadastro realizado com sucesso! ID do novo usuário: ' + response.data.novoId);
-      navigate("/"); 
+      await axios.post("http://localhost:5010/usuario", dadosCadastro);
+      toast.success("Cadastro realizado com sucesso!");
+
+      // Salvar que o usuário está logado
+      localStorage.setItem("isLoggedIn", true); // Exemplo simples de armazenamento
+      navigate("/");
     } catch (error) {
-      alert('Erro ao cadastrar: ' + (error.response?.data?.erro || 'Erro desconhecido'));
+      toast.error(
+        "Erro ao cadastrar: " +
+          (error.response?.data?.erro || "Erro desconhecido")
+      );
     }
   };
 
   return (
     <div className="container">
+      <Toaster />
       <h1>HAYAN</h1>
       <h2>Cadastre seus dados</h2>
       <p>Estas informações também vão fazer parte do seu prontuário médico.</p>
-
       <form onSubmit={salvarCadastro}>
         <div className="grupo-formulario">
           <input
@@ -61,10 +76,11 @@ export default function Cadastrar() {
           />
         </div>
         <div className="grupo-formulario">
-          <label>Data de Nascimento</label>
+          <label>Data de Nascimento</label>{" "}
+          {/* Alterado para Data de Nascimento */}
           <input
             type="date"
-            value={dtNascimento}
+            value={dtNascimento} // Valor correto agora
             onChange={(e) => setDtNascimento(e.target.value)}
             required
           />
@@ -83,7 +99,7 @@ export default function Cadastrar() {
           <PhoneInput
             defaultCountry="br"
             value={celular}
-            onChange={(phone) => setCelular(phone)} // Garantindo que o valor do número de celular seja atualizado
+            onChange={(phone) => setCelular(phone)} // Certifique-se de que o telefone está sendo armazenado corretamente
             required
           />
         </div>

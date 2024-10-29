@@ -6,7 +6,7 @@ export default function PaginaInicial() {
   const [selectedService, setSelectedService] = useState("Endodontia");
   const [scrolled, setScrolled] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn") === "true");
   const navigate = useNavigate();
 
   // Referências para seções da página
@@ -16,7 +16,6 @@ export default function PaginaInicial() {
   const devBlackSpaceRef = useRef(null);
   const contatoRef = useRef(null);
 
-  // Dados de serviços
   const services = {
     "Endodontia (Canal)": "Tratamento de canal para preservar a polpa do dente.",
     "Implante": "Substituição de dentes por implantes metálicos fixados no osso.",
@@ -33,16 +32,17 @@ export default function PaginaInicial() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Função para navegação do usuário
   const handleUserClick = () => {
     if (!isLoggedIn) {
       setShowAuthModal(true);
     } else {
-      navigate('/perfil');
+      localStorage.removeItem("isLoggedIn"); // Remove o estado de login
+      localStorage.removeItem("token"); // Remove o token
+      setIsLoggedIn(false);
+      navigate('/'); // Redireciona para a página inicial
     }
   };
 
-  // Função para rolar até uma seção específica
   const scrollToSection = (ref) => {
     ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
   };

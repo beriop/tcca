@@ -1,23 +1,28 @@
-import jwt from 'jsonwebtoken';
-
-const KEY = '===!!Hayan==';
-
+import jwt from 'jsonwebtoken'
+const KEY = '===!!Hayan=='
+                  
 export function gerarToken(userInfo) {
-    return jwt.sign(userInfo, KEY);
+  return jwt.sign(userInfo, KEY)
 }
 
 export function autenticar(req, resp, next) {
-    const token = req.headers['authorization'];
+  return autenticacao(req, resp, next);
+}
 
-    if (!token) {
-        return resp.status(401).json({ erro: 'Token não fornecido.' });
-    }
+export function autenticacao(req, resp, next) {
+  try {
+    let token = req.headers['x-access-token'];
 
-    jwt.verify(token, KEY, (err, decoded) => {
-        if (err) {
-            return resp.status(403).json({ erro: 'Token inválido.' });
-        }
-        req.user = decoded;
-        next();
-    });
+    if (token === undefined)
+      token = req.query['x-access-token']
+
+    let signd = jwt.verify(token, KEY);
+
+    req.user = signd;
+    
+    next();
+
+  } catch (e) {
+    resp.status(401).end();
+  }
 }

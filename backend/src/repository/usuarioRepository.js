@@ -10,9 +10,9 @@ export async function inserirUsuario(pessoa) {
     const hash = crypto.SHA256(pessoa.senha).toString();
     const [resposta] = await con.query(comando, [
         pessoa.nome,
-        pessoa.dt_nascimento,
+        pessoa.dtNascimento,
         pessoa.cpf,
-        pessoa.nm_celular,
+        pessoa.nm_celular, // Certifique-se de que está sendo preenchido corretamente
         pessoa.email,
         pessoa.sexo,
         hash,
@@ -20,6 +20,7 @@ export async function inserirUsuario(pessoa) {
     
     return resposta.insertId;
 }
+
 
 // Função para validar um usuário com CPF, e-mail e senha
 export async function validarUsuario(pessoa) {
