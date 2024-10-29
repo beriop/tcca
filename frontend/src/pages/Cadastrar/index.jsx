@@ -22,7 +22,7 @@ export default function Cadastrar() {
   const salvarCadastro = async (e) => {
     e.preventDefault();
 
-    const cpfLimpo = cpf.replace(/\D/g, ""); // Remove caracteres não numéricos
+    const cpfLimpo = cpf.replace(/\D/g, "");
 
     if (!cpfValidator.isValid(cpfLimpo)) {
       toast.error("CPF inválido!");
@@ -42,7 +42,7 @@ export default function Cadastrar() {
     const dadosCadastro = {
       nome,
       dtNascimento,
-      cpf: cpfLimpo, // Usando o CPF limpo
+      cpf: cpfLimpo,
       nm_celular: celular,
       email,
       sexo,
@@ -50,27 +50,19 @@ export default function Cadastrar() {
     };
 
     try {
-      await axios.post("http://localhost:5010/usuario", dadosCadastro);
-      toast.success("Cadastro realizado com sucesso!");
-
-      // Salvar que o usuário está logado
-      localStorage.setItem("isLoggedIn", true); // Exemplo simples de armazenamento
-
-      // Adiciona um pequeno atraso antes de navegar
-      setTimeout(() => {
-        navigate("/");
-      }, 2000); // 2000 milissegundos = 2 segundos
+      const response = await axios.post("http://localhost:5010/usuario", dadosCadastro);
+      if (response.status === 201) {
+        toast.success("Cadastro realizado com sucesso!");
+        localStorage.setItem("isLoggedIn", true);
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      }
     } catch (error) {
-      if (
-        error.response?.data?.erro &&
-        error.response.data.erro.includes("Duplicate entry")
-      ) {
+      if (error.response?.data?.erro && error.response.data.erro.includes("Duplicate entry")) {
         toast.error("O e-mail informado já está cadastrado.");
       } else {
-        toast.error(
-          "Erro ao cadastrar: " +
-            (error.response?.data?.erro || "Erro desconhecido")
-        );
+        toast.error("Erro ao cadastrar: " + (error.response?.data?.erro || "Erro desconhecido"));
       }
     }
   };
@@ -108,7 +100,7 @@ export default function Cadastrar() {
             onChange={(e) => {
               const inputCpf = e.target.value;
               if (inputCpf.length <= 11) {
-                setCpf(inputCpf); // Permite apenas até 11 caracteres
+                setCpf(inputCpf);
               }
             }}
             required
@@ -164,7 +156,7 @@ export default function Cadastrar() {
           />
         </div>
         <div className="grupo-formulario termos-container">
-        <label htmlFor="terms">
+          <label htmlFor="terms">
             Aceito os <Link to="#">termos de telemedicina</Link>
           </label>
           <input

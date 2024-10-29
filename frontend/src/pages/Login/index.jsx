@@ -8,10 +8,12 @@ export default function Login() {
   const [cpf, setCpf] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const realizarLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const cpfLimpo = cpf.replace(/\D/g, ""); // Remove caracteres não numéricos
 
@@ -35,6 +37,8 @@ export default function Login() {
         "Erro ao fazer login: " +
           (error.response?.data?.erro || "Erro desconhecido")
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -65,8 +69,12 @@ export default function Login() {
             onChange={(e) => setSenha(e.target.value)}
           />
           <div className="forgot-password">Esqueceu sua senha?</div>
-          <button className="login-button" onClick={realizarLogin}>
-            Entrar
+          <button
+            className="login-button"
+            onClick={realizarLogin}
+            disabled={loading}
+          >
+            {loading ? "Carregando..." : "Entrar"}
           </button>
         </div>
       </div>
