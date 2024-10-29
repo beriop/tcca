@@ -34,6 +34,11 @@ export default function Cadastrar() {
       return;
     }
 
+    if (!celular) {
+      toast.error("Por favor, insira um número de celular completo.");
+      return;
+    }
+
     const dadosCadastro = {
       nome,
       dtNascimento,
@@ -50,7 +55,11 @@ export default function Cadastrar() {
 
       // Salvar que o usuário está logado
       localStorage.setItem("isLoggedIn", true); // Exemplo simples de armazenamento
-      navigate("/");
+
+      // Adiciona um pequeno atraso antes de navegar
+      setTimeout(() => {
+        navigate("/");
+      }, 2000); // 2000 milissegundos = 2 segundos
     } catch (error) {
       toast.error(
         "Erro ao cadastrar: " +
@@ -76,11 +85,10 @@ export default function Cadastrar() {
           />
         </div>
         <div className="grupo-formulario">
-          <label>Data de Nascimento</label>{" "}
-          {/* Alterado para Data de Nascimento */}
+          <label>Data de Nascimento</label>
           <input
             type="date"
-            value={dtNascimento} // Valor correto agora
+            value={dtNascimento}
             onChange={(e) => setDtNascimento(e.target.value)}
             required
           />
@@ -90,7 +98,12 @@ export default function Cadastrar() {
             type="text"
             placeholder="CPF"
             value={cpf}
-            onChange={(e) => setCpf(e.target.value)}
+            onChange={(e) => {
+              const inputCpf = e.target.value;
+              if (inputCpf.length <= 11) {
+                setCpf(inputCpf); // Permite apenas até 11 caracteres
+              }
+            }}
             required
           />
         </div>
@@ -99,7 +112,7 @@ export default function Cadastrar() {
           <PhoneInput
             defaultCountry="br"
             value={celular}
-            onChange={(phone) => setCelular(phone)} // Certifique-se de que o telefone está sendo armazenado corretamente
+            onChange={(phone) => setCelular(phone)}
             required
           />
         </div>
