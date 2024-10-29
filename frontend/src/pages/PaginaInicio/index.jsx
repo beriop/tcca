@@ -125,22 +125,32 @@ export default function PaginaInicial() {
         <p><span className="corProfi">Profissionais altamente qualificados</span>, <br /> prontos para oferecer o melhor cuidado.</p>
         <div className="grade-profissionais">
           <div className="item-profissional">
-            <img alt="Profissional 1" src="./assets/images/profissional1.png" />
+            <img alt="Profissional 1" src="./assets/images/brunex.png" />
           </div>
           <div className="item-profissional">
-            <img alt="Profissional 2" src="./assets/images/profissional2.png" />
+            <img alt="Profissional 2" src="./assets/images/lobox.png" />
           </div>
         </div>
       </section>
-
-      {/* Seção Desenvolvedora */}
+      {/*seção da blackspace*/}
       <section id="Devblackspace" className="Devblackspace" ref={devBlackSpaceRef}>
-        <div className="blackspace">
-          <h3 className="blackspace-text">Desenvolvido por</h3>
-          <img alt="Logo Black Space" src="./assets/images/blackspace.png" />
-        </div>
-      </section>
-
+  <div className="blackspace-container">
+    <div className="blackspace-content">
+      <h3 className="blackspace-text">Desenvolvido por</h3>
+      <img alt="Logo Black Space" src="./assets/images/blackspace.png" />
+    </div>
+    {/* Mapa do Google Maps */}
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4345.11968819073!2d-46.70905370719574!3d-23.683267657064032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce502d2289a843%3A0x14406b17b30d0174!2sInstituto%20Social%20Nossa%20Senhora%20de%20F%C3%A1tima!5e0!3m2!1spt-BR!2sbr!4v1730201100591!5m2!1spt-BR!2sbr" 
+      width="600" 
+      height="450" 
+      style={{ border: "0" }}
+      allowFullScreen="" 
+      loading="lazy" 
+      referrerPolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
       {/* Rodapé */}
       <footer className="rodape" ref={contatoRef}>
         <div className="grade-rodape">

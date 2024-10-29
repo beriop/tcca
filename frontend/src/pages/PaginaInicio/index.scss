@@ -107,7 +107,7 @@
 
 
 .servicos {
-  display: flex;
+display: flex;
   flex-direction: column; // Mudança para coluna
   align-items: center; // Centraliza o conteúdo horizontalmente
   font-weight: bold;
@@ -203,27 +203,60 @@
   border: 2px solid #000000;
 }
 
-.blackspace {
+.Devblackspace {
   display: flex;
-  align-items: center;
-  flex-direction: column;
+  justify-content: center;
   margin: 150px auto;
   background-color: #000;
-  width: 600px;
+  width: 90%; // ajusta para responsividade em telas menores
+  max-width: 1200px; // limita a largura máxima em telas grandes
   border-radius: 20px;
   padding: 20px;
+  
+  .blackspace-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-direction: row;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  .blackspace-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 600px;
+
+    .blackspace-text {
+      color: #ffffff;
+      font-size: 25px;
+      margin-bottom: 10px;
+    }
+
+    img {
+      width: 500px;
+      height: auto;
+      border-radius: 10px;
+    }
+  }
+
+  iframe {
+    width: 600px;
+    height: 450px;
+    border: none;
+    border-radius: 10px;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      height: 350px;
+    }
+  }
 }
 
-.blackspace-text {
-  color: #ffffff;
-  text-align: center;
-  font-size: 25px;
-}
-
-.blackspace img {
-  width: 500px;
-  height: auto;
-}
 
 .rodape {
   background-color: #f0f0f0;

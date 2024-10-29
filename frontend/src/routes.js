@@ -4,7 +4,6 @@ import PaginaInicio from "./pages/PaginaInicio";
 import Consultas from "./pages/Consulta";
 import Cadastrar from "./pages/Cadastrar";
 import Login from "./pages/Login";
-import Consultar from "./pages/Consultar";
 
 export default function Navigation() {
   return (
@@ -14,7 +13,6 @@ export default function Navigation() {
         <Route path="/consultas" element={<Consultas />} />
         <Route path="/cadastrar" element={<Cadastrar />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/consultar" element={<Consultar />} />
       </Routes>
     </BrowserRouter>
   );
