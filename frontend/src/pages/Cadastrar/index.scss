@@ -77,10 +77,10 @@ form {
   text-decoration: underline;
 }
 
-.botao {
+.botaoCadastrar {
   background-color: #00f0ff;
   color: #fff;
-  padding: 10px 20px;
+  padding: 10px 100px;
   border: none;
   border-radius: 5px;
   font-size: 16px;
@@ -88,6 +88,21 @@ form {
   margin-top: 10px; // Espaço acima do botão
 }
 
-.botao:hover {
+.botaoCadastrar:hover {
   background-color: #00d0e0;
+}
+/* Adicione a classe .termos-container */
+.termos-container {
+  display: flex;
+  align-items: center; /* Alinha verticalmente o texto e o checkbox */
+}
+
+.termos-container label {
+  align-items: center;
+  margin: 0px;
+}
+
+/* Redefine a margem do checkbox e o estilo do link */
+.termos-container input[type="checkbox"] {
+  margin-left: 10px; /* Espaço entre a checkbox e o texto */
 }

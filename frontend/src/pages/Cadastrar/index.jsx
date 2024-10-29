@@ -61,10 +61,17 @@ export default function Cadastrar() {
         navigate("/");
       }, 2000); // 2000 milissegundos = 2 segundos
     } catch (error) {
-      toast.error(
-        "Erro ao cadastrar: " +
-          (error.response?.data?.erro || "Erro desconhecido")
-      );
+      if (
+        error.response?.data?.erro &&
+        error.response.data.erro.includes("Duplicate entry")
+      ) {
+        toast.error("O e-mail informado já está cadastrado.");
+      } else {
+        toast.error(
+          "Erro ao cadastrar: " +
+            (error.response?.data?.erro || "Erro desconhecido")
+        );
+      }
     }
   };
 
@@ -156,7 +163,10 @@ export default function Cadastrar() {
             required
           />
         </div>
-        <div className="grupo-formulario">
+        <div className="grupo-formulario termos-container">
+        <label htmlFor="terms">
+            Aceito os <Link to="#">termos de telemedicina</Link>
+          </label>
           <input
             type="checkbox"
             id="terms"
@@ -164,11 +174,9 @@ export default function Cadastrar() {
             onChange={(e) => setAceitoTermos(e.target.checked)}
             required
           />
-          <label htmlFor="terms">
-            Aceito os <Link to="#">termos de telemedicina</Link>
-          </label>
         </div>
-        <button type="submit" className="botao">
+
+        <button type="submit" className="botaoCadastrar">
           Cadastrar
         </button>
       </form>

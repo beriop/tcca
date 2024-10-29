@@ -77,8 +77,9 @@ export default function PaginaInicial() {
           <div className="modal-content">
             <span className="close" onClick={() => setShowAuthModal(false)}>&times;</span>
             <h2>Faça sua escolha</h2>
-            <button onClick={() => navigate('/cadastrar')}>Cadastrar</button>
-            <button onClick={() => navigate('/login')}>Logar</button>
+            <Link to="/cadastrar" className="botao">Cadastrar</Link>
+            <Link to="/login" className="botao">Logar</Link>
+
           </div>
         </div>
       )}
