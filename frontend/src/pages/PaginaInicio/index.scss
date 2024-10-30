@@ -146,6 +146,7 @@
   color: #000000;
   cursor: pointer;
   transition: background-color 0.3s;
+  position: relative; 
 }
 
 .item-servico.selected {
@@ -367,4 +368,13 @@
 .rodape {
   opacity: 0; /* Começa invisível */
   animation: slideIn 0.8s ease-out forwards;
+}
+
+.seta-baixo {
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #00acc1; /* Cor da seta */
+  position: absolute;
+  bottom: -15px; /* Posiciona a seta fora da caixa */
+  left: 43%;
 }
