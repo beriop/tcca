@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import PaginaInicio from "./pages/PaginaInicio";
-import Consultas from "./pages/Consulta";
+import Consultas from "./pages/Consultas";
 import Cadastrar from "./pages/Cadastrar";
 import Login from "./pages/Login";
 
