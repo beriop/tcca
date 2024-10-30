@@ -19,12 +19,32 @@
 }
 
 .cabecalho .menu a {
-  color: #ffffff; /* Cor dos links padrão (branca) */
-  transition: color 0.3s;
+  color: #ffffff; // Cor padrão dos links
+  transition: color 0.3s, border-bottom 0.3s; // Transição para cor e borda
+  position: relative; // Necessário para posicionamento absoluto
+}
+
+.cabecalho .menu a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px; // Ajuste a posição da barrinha
+  left: 0;
+  width: 0;
+  height: 2px; // Espessura da barrinha
+  background-color: #fff; // Cor da barrinha
+  transition: width 0.3s;
+}
+
+.cabecalho .menu a:hover::after {
+  width: 100%; // Mostra a barrinha completa ao passar o mouse
 }
 
 .cabecalho.scrolled .menu a {
-  color: #000000; /* Define a cor dos links para preto ao rolar */
+  color: #000000; // Cor dos links quando a página é rolada
+}
+
+.cabecalho.scrolled .menu a::after {
+  background-color: #000000; // Cor da barrinha ao rolar
 }
 
 .cabecalho img {
