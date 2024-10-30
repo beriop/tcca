@@ -139,10 +139,11 @@
 }
 
 .item-servico {
-  border: 3px solid #001180;
+  border: 3px solid #eaedff;
+  border-radius: 12px;
   padding: 30px;
   text-align: center;
-  color: #001180;
+  color: #000000;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -154,6 +155,7 @@
 
 .descricao-servico {
   border: 3px solid #000;
+  border-radius: 12px;
   width: 600px;
   margin: 30px;
   padding: 20px 10px 100px 20px;
