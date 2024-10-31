@@ -14,8 +14,8 @@ endpoints.post('/entrar', async (req, resp) => {
             return resp.status(401).json({ erro: "Usuário ou senha incorretos" });
         }
 
-        const token = gerarToken(usuario);
-        resp.json({ token });
+        const token = gerarToken({ id: usuario.id, isAdmin: usuario.isAdmin }); // Inclui isAdmin no token
+        resp.json({ token, isAdmin: usuario.isAdmin }); // Retorna também se é admin
     } catch (err) {
         resp.status(400).json({ erro: err.message });
     }
@@ -47,6 +47,20 @@ endpoints.get('/usuario/:id', autenticar, async (req, resp) => {
         resp.status(400).json({ erro: 'Erro ao carregar os dados do usuário.' });
     }
 });
+
+endpoints.post('/admin', async (req, resp) => {
+    try {
+        const pessoa = {
+            ...req.body,
+            isAdmin: true // Define o usuário como administrador
+        };
+        const id = await db.inserirUsuario(pessoa);
+        resp.status(201).json({ novoId: id });
+    } catch (err) {
+        resp.status(400).json({ erro: err.message });
+    }
+});
+
 
 
 export default endpoints;

@@ -11,3 +11,14 @@ body {
   padding: 0;
   background-color: #fff;
 }
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333; // Altere conforme necessário
+}

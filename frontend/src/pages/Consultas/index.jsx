@@ -48,11 +48,16 @@ export default function Consulta() {
       categoria,
       procedimento,
       dataHora, // Usando o datetime que você vai enviar para o banco de dados
-      idUsuario: userId, // Adiciona o ID do usuário logado
     };
-
+  
+    const token = localStorage.getItem("token"); // Obtendo o token do localStorage
+  
     try {
-      const response = await axios.post("http://localhost:5010/agendamentos", dadosAgendamento);
+      const response = await axios.post("http://localhost:5010/agendamentos", dadosAgendamento, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Incluindo o token no cabeçalho
+        },
+      });
       if (response.status === 201) {
         toast.success("Consulta confirmada com sucesso!");
       }
@@ -60,6 +65,7 @@ export default function Consulta() {
       toast.error("Erro ao confirmar consulta: " + (error.response?.data?.erro || "Erro desconhecido"));
     }
   };
+  
 
   const procedimentosDisponiveis = () => {
     const categoriaSelecionada = categoriasProcedimentos.find((cat) => cat.categoria === categoria);

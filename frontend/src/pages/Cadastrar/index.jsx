@@ -29,7 +29,6 @@ export default function Cadastrar() {
 
   const salvarCadastro = async (e) => {
     e.preventDefault();
-
     const cpfLimpo = cpf.replace(/\D/g, "");
 
     if (!cpfValidator.isValid(cpfLimpo)) {
@@ -85,6 +84,7 @@ export default function Cadastrar() {
   return (
     <div className="container">
       <Toaster />
+      <button className="close-button" onClick={() => navigate("/")}>✖</button>
       <h1>HAYAN</h1>
       <h2>Cadastre seus dados</h2>
       <p>Estas informações também vão fazer parte do seu prontuário médico.</p>

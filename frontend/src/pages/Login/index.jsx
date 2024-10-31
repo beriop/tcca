@@ -18,30 +18,40 @@ export default function Login() {
     const cpfLimpo = cpf.replace(/\D/g, ""); 
   
     try {
-      const response = await axios.post("http://localhost:5010/entrar", {
-        cpf: cpfLimpo,
-        email,
-        senha,
-      });
+        const response = await axios.post("http://localhost:5010/entrar", {
+            cpf: cpfLimpo,
+            email,
+            senha,
+        });
   
-      const { token, id } = response.data; // Supondo que o ID do usuário é retornado aqui
+        const { token, id, isAdmin } = response.data; // Incluindo isAdmin aqui
   
-      localStorage.setItem("token", token);
-      localStorage.setItem("userId", id); // Armazenando o ID do usuário
-      localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("token", token);
+        localStorage.setItem("userId", id); 
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("isAdmin", isAdmin); // Salva o status de admin
+        localStorage.setItem("token", response.data.token);
   
-      toast.success("Login realizado com sucesso!");
-      navigate("/"); // Redireciona para a página inicial
+        toast.success("Login realizado com sucesso!");
+        navigate("/"); // Redireciona para a página inicial
     } catch (error) {
-      toast.error("Erro ao realizar login: " + (error.response?.data?.erro || "Erro desconhecido"));
+        toast.error("Erro ao realizar login: " + (error.response?.data?.erro || "Erro desconhecido"));
     } finally {
-      setLoading(false);
+        setLoading(false);
+    }
+  };
+
+  const handleCpfChange = (e) => {
+    const inputValue = e.target.value.replace(/\D/g, ""); // Remove qualquer caractere que não seja número
+    if (inputValue.length <= 11) { // Limita a 11 dígitos
+      setCpf(inputValue);
     }
   };
 
   return (
     <div className="container">
       <Toaster />
+      <button className="close-button" onClick={() => navigate("/")}>✖</button>
       <img
         alt="Logo Hayan"
         src={"/assets/images/HayanBlack.png"}
@@ -53,7 +63,8 @@ export default function Login() {
           type="text"
           placeholder="CPF"
           value={cpf}
-          onChange={(e) => setCpf(e.target.value)}
+          onChange={handleCpfChange} // Usa a nova função para controlar a entrada do CPF
+          maxLength={11} // Limita a 11 caracteres
           required
         />
         <input

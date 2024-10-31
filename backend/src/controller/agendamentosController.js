@@ -1,15 +1,15 @@
-import { autenticar } from '../utils/jwt.js';
-import * as db from '../repository/agendamentoRepository.js';
 import { Router } from 'express';
+import { autenticar } from '../utils/jwt.js'; // Certifique-se de que a função de autenticação está importada
+import * as db from '../repository/agendamentoRepository.js'; // Repositório de agendamentos
 
 const endpoints = Router();
 
-// Obter todos os agendamentos do usuário logado
-endpoints.get('/agendamentos', autenticar, async (req, resp) => {
+// Rota para agendar consulta
+endpoints.post('/agendamentos', autenticar, async (req, resp) => {
     try {
-        const idUsuario = req.user.id;
-        const registros = await db.consultarAgendamentos(idUsuario);
-        resp.json(registros);
+        const agendamento = { ...req.body, idUsuario: req.user.id }; // Associa agendamento ao usuário logado
+        const id = await db.inserirAgendamento(agendamento);
+        resp.status(201).json({ novoId: id });
     } catch (err) {
         resp.status(400).json({ erro: err.message });
     }
@@ -68,6 +68,21 @@ endpoints.delete('/agendamentos/:id', autenticar, async (req, resp) => {
             resp.sendStatus(204); // No Content
         } else {
             resp.status(404).json({ erro: 'Nenhum registro encontrado' });
+        }
+    } catch (err) {
+        resp.status(400).json({ erro: err.message });
+    }
+});
+
+// Adicionar endpoint para confirmar consulta
+endpoints.post('/agendamentos/:id/confirmar', autenticar, async (req, resp) => {
+    try {
+        const id = req.params.id;
+        const confirmacao = await db.confirmarAgendamento(id); // Você precisa implementar essa função no repositório
+        if (confirmacao) {
+            resp.sendStatus(204); // No Content
+        } else {
+            resp.status(404).json({ erro: 'Agendamento não encontrado ou já confirmado' });
         }
     } catch (err) {
         resp.status(400).json({ erro: err.message });

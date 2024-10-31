@@ -64,3 +64,13 @@ export async function removerAgendamento(id) {
     const [resposta] = await con.query(comando, [id]);
     return resposta.affectedRows;
 }
+
+export async function confirmarAgendamento(id) {
+    const comando = `
+        UPDATE tb_agendamentos 
+        SET confirmado = 1 
+        WHERE id_agendamentos = ? AND confirmado = 0`; // Presumindo que há uma coluna 'confirmado'
+    
+    const [resposta] = await con.query(comando, [id]);
+    return resposta.affectedRows > 0; // Retorna true se o agendamento foi confirmado
+}
