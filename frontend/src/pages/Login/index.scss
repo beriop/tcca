@@ -45,7 +45,7 @@
     border-radius: 5px;
 }
 .forgot-password {
-    align-self: flex-end;
+    align-self: flex;
     margin-bottom: 20px;
     font-size: 12px;
 }
@@ -55,7 +55,12 @@
     background-color: #00e5ff;
     border: none;
     border-radius: 20px;
-    color: #fff;
+    color: #000000;
     font-size: 16px;
     cursor: pointer;
+    box-shadow: 0 3px 3px #00000033;
+
+    &:hover {
+        background-color: #0097a7; // Cor ao passar o mouse
+    }
 }

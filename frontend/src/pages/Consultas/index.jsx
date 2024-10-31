@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Importa o useNavigate
 import "./index.scss"; 
-import Rodape from "../../components/RodapeConsulta/RodapeConsulta";
-import Cabecalho from "../../components/CabecalhoConsulta/CabecalhoConsulta";
+import Rodape from "../../components/Rodape/Rodape";
+import Cabecalho from "../../components/Cabecalho/Cabecalho";
 import { Toaster, toast } from 'react-hot-toast';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Estilo para o DatePicker
@@ -25,20 +26,29 @@ const categoriasProcedimentos = [
       "Remoção de Manchas",
     ],
   },
-  // Adicione mais categorias e procedimentos conforme necessário
 ];
 
 export default function Consulta() {
+  const navigate = useNavigate(); // Inicializa o useNavigate
   const [categoria, setCategoria] = useState("");
   const [procedimento, setProcedimento] = useState("");
   const [dataHora, setDataHora] = useState(new Date()); // Inicializa com a data atual
+
+  const userId = localStorage.getItem("userId"); // Obtendo o ID do usuário logado
+
+  useEffect(() => {
+    // Verifica se o usuário não está logado e redireciona para a página de login
+    if (!userId) {
+      navigate("/login"); // Redireciona para a página de login
+    }
+  }, [userId, navigate]); // Dependências incluem userId e navigate
 
   const handleConfirmar = async () => {
     const dadosAgendamento = {
       categoria,
       procedimento,
       dataHora, // Usando o datetime que você vai enviar para o banco de dados
-      // idUsuario: 1, // Adicione o ID do usuário logado se necessário
+      idUsuario: userId, // Adiciona o ID do usuário logado
     };
 
     try {

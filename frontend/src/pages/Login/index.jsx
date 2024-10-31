@@ -14,70 +14,67 @@ export default function Login() {
   const realizarLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-
-    const cpfLimpo = cpf.replace(/\D/g, ""); // Remove caracteres não numéricos
-
+  
+    const cpfLimpo = cpf.replace(/\D/g, ""); 
+  
     try {
       const response = await axios.post("http://localhost:5010/entrar", {
         cpf: cpfLimpo,
         email,
         senha,
       });
-
-      const { token } = response.data;
-
-      // Salvar o token e o estado do login
+  
+      const { token, id } = response.data; // Supondo que o ID do usuário é retornado aqui
+  
       localStorage.setItem("token", token);
-      localStorage.setItem("isLoggedIn", true);
+      localStorage.setItem("userId", id); // Armazenando o ID do usuário
+      localStorage.setItem("isLoggedIn", "true");
+  
       toast.success("Login realizado com sucesso!");
-
-      navigate("/");
+      navigate("/"); // Redireciona para a página inicial
     } catch (error) {
-      toast.error(
-        "Erro ao fazer login: " +
-          (error.response?.data?.erro || "Erro desconhecido")
-      );
+      toast.error("Erro ao realizar login: " + (error.response?.data?.erro || "Erro desconhecido"));
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div>
-      <div className="container">
-        <Toaster />
-        <div className="logo">HAYAN</div>
-        <div className="login-title">Faça seu login</div>
-
-        <div className="login-form">
-          <input
-            placeholder="CPF"
-            type="text"
-            value={cpf}
-            onChange={(e) => setCpf(e.target.value)}
-          />
-          <input
-            placeholder="Email"
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            placeholder="Senha"
-            type="password"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-          />
-          <div className="forgot-password">Esqueceu sua senha?</div>
-          <button
-            className="login-button"
-            onClick={realizarLogin}
-            disabled={loading}
-          >
-            {loading ? "Carregando..." : "Entrar"}
-          </button>
-        </div>
-      </div>
+    <div className="container">
+      <Toaster />
+      <img
+        alt="Logo Hayan"
+        src={"/assets/images/HayanBlack.png"}
+        className="logo"
+      />
+      <h2 className="login-title">Faça seu Login</h2>
+      <form onSubmit={realizarLogin} className="login-form">
+        <input
+          type="text"
+          placeholder="CPF"
+          value={cpf}
+          onChange={(e) => setCpf(e.target.value)}
+          required
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
+          required
+        />
+        <a href="/recuperar-senha" className="forgot-password">Esqueceu a senha?</a>
+        <button type="submit" className="login-button" disabled={loading}>
+          {loading ? "Entrando..." : "Entrar"}
+        </button>
+      </form>
     </div>
   );
 }

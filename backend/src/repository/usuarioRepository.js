@@ -12,7 +12,7 @@ export async function inserirUsuario(pessoa) {
         pessoa.nome,
         pessoa.dtNascimento,
         pessoa.cpf,
-        pessoa.nm_celular, // Certifique-se de que está sendo preenchido corretamente
+        pessoa.nm_celular,
         pessoa.email,
         pessoa.sexo,
         hash,
@@ -20,7 +20,6 @@ export async function inserirUsuario(pessoa) {
     
     return resposta.insertId;
 }
-
 
 // Função para validar um usuário com CPF, e-mail e senha
 export async function validarUsuario(pessoa) {
@@ -31,5 +30,16 @@ export async function validarUsuario(pessoa) {
     
     const hash = crypto.SHA256(pessoa.senha).toString();
     const [registros] = await con.query(comando, [pessoa.cpf, pessoa.email, hash]);
+    return registros.length > 0 ? registros[0] : null; // Retorna null se não encontrar
+}
+
+export async function consultarUsuarioPorId(id) {
+    const comando = `
+        SELECT id_usuario AS id, nome, dt_nascimento, cpf, nm_celular, email, sexo 
+        FROM tb_usuario 
+        WHERE id_usuario = ?`;
+    
+    const [registros] = await con.query(comando, [id]);
+    console.log('Registros encontrados:', registros); // Log dos registros
     return registros.length > 0 ? registros[0] : null; // Retorna null se não encontrar
 }

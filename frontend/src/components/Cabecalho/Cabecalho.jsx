@@ -5,7 +5,8 @@ import './Cabecalho.scss';
 const Cabecalho = ({ scrollToSection }) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn") === "true");
+  const userId = localStorage.getItem("userId"); 
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -14,13 +15,15 @@ const Cabecalho = ({ scrollToSection }) => {
   }, []);
 
   const handleUserClick = () => {
-    if (!isLoggedIn) {
-      setShowAuthModal(true);
-    } else {
-      localStorage.removeItem("isLoggedIn");
-      localStorage.removeItem("token");
-      window.location.reload();
-    }
+    setShowAuthModal(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    setIsLoggedIn(false); // Atualiza o estado de login
+    window.location.reload(); // Atualiza a página para refletir o logout
   };
 
   return (
@@ -47,9 +50,17 @@ const Cabecalho = ({ scrollToSection }) => {
         <div className="auth-modal">
           <div className="modal-content">
             <span className="close" onClick={() => setShowAuthModal(false)}>&times;</span>
-            <h2>Faça sua escolha</h2>
-            <Link to="/cadastrar" className="botao">Cadastrar</Link>
-            <Link to="/login" className="botao">Logar</Link>
+            <h2>{isLoggedIn ? "Bem-vindo!" : "Faça sua escolha"}</h2>
+            {!isLoggedIn ? (
+              <>
+                <Link to="/cadastrar" className="botao">Cadastrar</Link>
+                <Link to="/login" className="botao">Logar</Link>
+              </>
+            ) : (
+              <>
+                <button onClick={handleLogout} className="botao">Sair</button>
+              </>
+            )}
           </div>
         </div>
       )}

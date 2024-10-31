@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import Rodape from "../../components/Rodape/Rodape";
-import Cabecalho from "../../components/Cabecalho/Cabecalho";
-import "./index.scss";
+import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import './index.scss'; 
+import Rodape from '../../components/Rodape/Rodape';
+import Cabecalho from '../../components/Cabecalho/Cabecalho';
 
 export default function PaginaInicial() {
   const [selectedService, setSelectedService] = useState("Endodontia");
