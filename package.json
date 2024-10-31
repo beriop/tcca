@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "cpf-cnpj-validator": "^1.0.3",
+    "react-datepicker": "^7.5.0",
+    "react-hot-toast": "^2.4.1",
+    "react-international-phone": "^4.3.0"
+  }
+}
