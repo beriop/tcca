@@ -1,22 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Rodape from "../../components/Rodape/Rodape";
+import Cabecalho from "../../components/Cabecalho/Cabecalho";
 import "./index.scss";
 
 export default function PaginaInicial() {
   const [selectedService, setSelectedService] = useState("Endodontia");
   const [scrolled, setScrolled] = useState(false);
-  const [showAuthModal, setShowAuthModal] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("isLoggedIn") === "true"
-  );
-  const navigate = useNavigate();
 
   // Referências para seções da página
   const inicioRef = useRef(null);
   const servicosRef = useRef(null);
   const profissionaisRef = useRef(null);
   const devBlackSpaceRef = useRef(null);
-  const contatoRef = useRef(null);
 
   const services = {
     "Endodontia (Canal)":
@@ -35,78 +31,41 @@ export default function PaginaInicial() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleUserClick = () => {
-    if (!isLoggedIn) {
-      setShowAuthModal(true);
-    } else {
-      localStorage.removeItem("isLoggedIn"); // Remove o estado de login
-      localStorage.removeItem("token"); // Remove o token
-      setIsLoggedIn(false);
-      navigate("/"); // Redireciona para a página inicial
+  const scrollToSection = (section) => {
+    switch (section) {
+      case "inicioRef":
+        inicioRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+        break;
+      case "servicosRef":
+        servicosRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+        break;
+      case "profissionaisRef":
+        profissionaisRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+        break;
+      case "devBlackSpaceRef":
+        devBlackSpaceRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+        break;
+      default:
+        break;
     }
-  };
-
-  const scrollToSection = (ref) => {
-    ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
     <div>
-      {/* Cabeçalho */}
-      <header className={`cabecalho ${scrolled ? "scrolled" : ""}`}>
-        <img
-          alt="Logo Hayan"
-          src={
-            scrolled
-              ? "./assets/images/HayanBlack.png"
-              : "./assets/images/Hayan.png"
-          }
-          className="logo"
-        />
-        <nav className="menu">
-          <Link to="#" onClick={() => scrollToSection(inicioRef)}>
-            Home
-          </Link>
-          <Link to="#" onClick={() => scrollToSection(servicosRef)}>
-            Procedimentos
-          </Link>
-          <Link to="#" onClick={() => scrollToSection(profissionaisRef)}>
-            Profissionais
-          </Link>
-          <Link to="#" onClick={() => scrollToSection(devBlackSpaceRef)}>
-            Desenvolvedora
-          </Link>
-          <a href="https://www.whatsapp.com/channel/0029Vagr93P2kNFvuR2bQQ11?text=Ol%C3%A1%2C+gostaria+de+agendar+uma+consulta.">
-            Contato
-          </a>
-        </nav>
-        <img
-          src="./assets/images/perfil.png"
-          alt="Logo Perfil"
-          className="icone-perfil"
-          onClick={handleUserClick}
-        />
-      </header>
+      <Cabecalho scrolled={scrolled} scrollToSection={scrollToSection} />
 
-      {/* Modal de Autenticação */}
-      {showAuthModal && (
-        <div className="auth-modal">
-          <div className="modal-content">
-            <span className="close" onClick={() => setShowAuthModal(false)}>
-              &times;
-            </span>
-            <h2>Faça sua escolha</h2>
-            <Link to="/cadastrar" className="botao">
-              Cadastrar
-            </Link>
-            <Link to="/login" className="botao">
-              Logar
-            </Link>
-          </div>
-        </div>
-      )}
-
-      {/* Seção Inicial */}
       <section id="inicio" className="inicial" ref={inicioRef}>
         <h1>
           Cuidar da saúde das <br /> pessoas para{" "}
@@ -125,7 +84,7 @@ export default function PaginaInicial() {
           rel="noopener noreferrer"
         >
           <img
-            src="./assets/images/whatslogo.png"
+            src="/assets/images/whatslogo.png"
             alt="Logo WhatsApp"
             className="logo-whatsapp"
           />
@@ -180,7 +139,8 @@ export default function PaginaInicial() {
           </div>
         </div>
       </section>
-      {/*seção da blackspace*/}
+
+      {/* Seção Desenvolvedora */}
       <section
         id="Devblackspace"
         className="Devblackspace"
@@ -200,38 +160,13 @@ export default function PaginaInicial() {
             allowFullScreen=""
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
+            title="Mapa do Instituto Social Nossa Senhora de Fátima" // Adicionando o atributo title
           ></iframe>
         </div>
       </section>
+
       {/* Rodapé */}
-      <footer className="rodape" ref={contatoRef}>
-        <div className="grade-rodape">
-          <div className="item-rodape">
-            <h3>Serviços</h3>
-            <Link to="#" onClick={() => scrollToSection(servicosRef)}>
-              Procedimentos
-            </Link>
-          </div>
-          <div className="item-rodape">
-            <h3>Clínica</h3>
-            <Link to="#" onClick={() => scrollToSection(profissionaisRef)}>
-              Profissionais
-            </Link>
-          </div>
-          <div className="item-rodape">
-            <h3>Sobre a desenvolvedora</h3>
-            <Link to="/sobre">Quem somos</Link>
-          </div>
-          <div className="item-rodape">
-            <h3>Ajuda</h3>
-            <Link to="/faq">Ajuda (FAQ)</Link>
-            <a href="https://whatsapp.com/channel/0029Vagr93P2kNFvuR2bQQ11">
-              Ajuda WhatsApp
-            </a>
-            <Link to="/termos-telemedicina">Termos de Telemedicina</Link>
-          </div>
-        </div>
-      </footer>
+      <Rodape scrollToSection={scrollToSection} />
     </div>
   );
 }
