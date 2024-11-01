@@ -1,0 +1,51 @@
+.rodape {
+  background-color: #f0f0f0;
+  text-align: center; /* Centraliza o texto */
+  border-top: 2px solid #ffffff;
+  padding: 20px;
+  animation-delay: 0.3s;
+}
+
+.grade-rodape {
+  display: flex;
+  justify-content: center; /* Muda para centralizar os itens */
+  flex-wrap: wrap; /* Permite que os itens se movam para a próxima linha se necessário */
+}
+
+.item-rodape {
+  margin: 10px; /* Margem entre os itens */
+  flex: 1; /* Tenta ocupar um mínimo de 200px e se adapta ao tamanho */
+  max-width: 350px; /* Define uma largura máxima para cada item */
+  display: flex; /* Para manter o layout vertical */
+  flex-direction: column; /* Itens no item-rodape em coluna */
+  align-items: center; /* Centraliza os itens verticalmente */
+}
+
+.item-rodape h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+/* Estilo para os links no rodapé */
+.item-rodape a {
+  font-size: 17px;
+  text-decoration: none;
+  color: #000;
+  position: relative; /* Necessário para o posicionamento do underline */
+  transition: color 0.3s; /* Transição suave para a cor */
+}
+
+.item-rodape a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px; /* Ajuste a posição da barrinha */
+  left: 0;
+  width: 0;
+  height: 2px; /* Espessura da barrinha */
+  background-color: #000; /* Cor da barrinha */
+  transition: width 0.3s; /* Transição suave para a largura */
+}
+
+.item-rodape a:hover::after {
+  width: 100%; /* Mostra a barrinha completa ao passar o mouse */
+}

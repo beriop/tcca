@@ -2,19 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Rodape.scss';
 
-const Rodape = ({ scrollToSection }) => {
+const RodapeConsulta = () => {
   return (
     <footer className="rodape">
       <div className="grade-rodape">
         <div className="item-rodape">
           <h3>Serviços</h3>
-          <Link to="/" onClick={() => scrollToSection('servicosRef')}>
+          <Link to="/">
             Procedimentos
           </Link>
         </div>
         <div className="item-rodape">
           <h3>Clínica</h3>
-          <Link to="/" onClick={() => scrollToSection('profissionaisRef')}>
+          <Link to="/">
             Profissionais
           </Link>
         </div>
@@ -35,4 +35,4 @@ const Rodape = ({ scrollToSection }) => {
   );
 };
 
-export default Rodape;
+export default RodapeConsulta;

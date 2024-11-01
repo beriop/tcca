@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './Cabecalho.scss';
+import './CabecalhoUser.scss';
 
-const Cabecalho = ({ scrollToSection }) => {
+const CabecalhoUser = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn") === "true");
@@ -42,18 +42,6 @@ const Cabecalho = ({ scrollToSection }) => {
   return (
       <header className={`cabecalho ${scrolled ? "scrolled" : ""}`}>
           <img
-              alt="Logo Hayan"
-              src={scrolled ? "/assets/images/HayanBlack.png" : "/assets/images/Hayan.png"}
-              className="logo"
-          />
-          <nav className="menu">
-              <Link to="/" onClick={() => scrollToSection('inicioRef')}>Home</Link>
-              <Link to="/" onClick={() => scrollToSection('servicosRef')}>Procedimentos</Link>
-              <Link to="/" onClick={() => scrollToSection('profissionaisRef')}>Profissionais</Link>
-              <Link to="/" onClick={() => scrollToSection('devBlackSpaceRef')}>Desenvolvedora</Link>
-              <a href="https://www.whatsapp.com/channel/0029Vagr93P2kNFvuR2bQQ11?text=Ol%C3%A1%2C+gostaria+de+agendar+uma+consulta.">Contato</a>
-          </nav>
-          <img
               src="/assets/images/perfil.png"
               alt="Logo Perfil"
               className="icone-perfil"
@@ -82,4 +70,4 @@ const Cabecalho = ({ scrollToSection }) => {
   );
 };
 
-export default Cabecalho;
+export default CabecalhoUser;

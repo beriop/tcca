@@ -15,7 +15,7 @@ endpoints.post('/entrar', async (req, resp) => {
         }
 
         const token = gerarToken({ id: usuario.id, isAdmin: usuario.isAdmin }); // Inclui isAdmin no token
-        resp.json({ token, isAdmin: usuario.isAdmin }); // Retorna também se é admin
+        resp.json({ token, id: usuario.id, isAdmin: usuario.isAdmin }); // Retorna também se é admin
     } catch (err) {
         resp.status(400).json({ erro: err.message });
     }
@@ -60,7 +60,5 @@ endpoints.post('/admin', async (req, resp) => {
         resp.status(400).json({ erro: err.message });
     }
 });
-
-
 
 export default endpoints;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Cabecalho.scss';
 
-const Cabecalho = ({ scrollToSection }) => {
+const CabecalhoConsulta = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn") === "true");
@@ -47,10 +47,10 @@ const Cabecalho = ({ scrollToSection }) => {
               className="logo"
           />
           <nav className="menu">
-              <Link to="/" onClick={() => scrollToSection('inicioRef')}>Home</Link>
-              <Link to="/" onClick={() => scrollToSection('servicosRef')}>Procedimentos</Link>
-              <Link to="/" onClick={() => scrollToSection('profissionaisRef')}>Profissionais</Link>
-              <Link to="/" onClick={() => scrollToSection('devBlackSpaceRef')}>Desenvolvedora</Link>
+              <Link to="/">Home</Link>
+              <Link to="/">Procedimentos</Link>
+              <Link to="/">Profissionais</Link>
+              <Link to="/">Desenvolvedora</Link>
               <a href="https://www.whatsapp.com/channel/0029Vagr93P2kNFvuR2bQQ11?text=Ol%C3%A1%2C+gostaria+de+agendar+uma+consulta.">Contato</a>
           </nav>
           <img
@@ -82,4 +82,4 @@ const Cabecalho = ({ scrollToSection }) => {
   );
 };
 
-export default Cabecalho;
+export default CabecalhoConsulta;

@@ -1,19 +1,27 @@
 import con from './connection.js';
 
-// Função para inserir um novo agendamento
 export async function inserirAgendamento(agendamento) {
     const comando = `
         INSERT INTO tb_agendamentos (categoria, procedimento, data, id_usuario) 
         VALUES (?, ?, ?, ?)`;
     
-    const [resposta] = await con.query(comando, [
-        agendamento.categoria,
-        agendamento.procedimento,
-        agendamento.data,
-        agendamento.idUsuario,
-    ]);
-    
-    return resposta.insertId;
+    try {
+        // Verifica se dataHora existe e converte para o formato MySQL DATETIME
+        const dataFormatada = agendamento.dataHora
+            ? new Date(agendamento.dataHora).toISOString().slice(0, 19).replace('T', ' ')
+            : null;
+
+        const [resposta] = await con.query(comando, [
+            agendamento.categoria,
+            agendamento.procedimento,
+            dataFormatada,
+            agendamento.idUsuario,
+        ]);
+
+        return resposta.insertId;
+    } catch (error) {
+        throw new Error(`Erro ao inserir agendamento: ${error.message}`);
+    }
 }
 
 // Função para consultar todos os agendamentos de um usuário
@@ -23,8 +31,12 @@ export async function consultarAgendamentos(idUsuario) {
         FROM tb_agendamentos 
         WHERE id_usuario = ?`;
     
-    const [registros] = await con.query(comando, [idUsuario]);
-    return registros;
+    try {
+        const [registros] = await con.query(comando, [idUsuario]);
+        return registros;
+    } catch (error) {
+        throw new Error(`Erro ao consultar agendamentos: ${error.message}`);
+    }
 }
 
 // Função para consultar um agendamento específico por ID
@@ -34,8 +46,12 @@ export async function consultarAgendamentoPorId(id) {
         FROM tb_agendamentos 
         WHERE id_agendamentos = ?`;
 
-    const [registros] = await con.query(comando, [id]);
-    return registros.length > 0 ? registros[0] : null; // Retorna null se não encontrar
+    try {
+        const [registros] = await con.query(comando, [id]);
+        return registros.length > 0 ? registros[0] : null; // Retorna null se não encontrar
+    } catch (error) {
+        throw new Error(`Erro ao consultar agendamento por ID: ${error.message}`);
+    }
 }
 
 // Função para atualizar um agendamento
@@ -45,14 +61,18 @@ export async function alterarAgendamento(id, agendamento) {
         SET categoria = ?, procedimento = ?, data = ? 
         WHERE id_agendamentos = ?`;
     
-    const [resposta] = await con.query(comando, [
-        agendamento.categoria,
-        agendamento.procedimento,
-        agendamento.data,
-        id,
-    ]);
-    
-    return resposta.affectedRows;
+    try {
+        const [resposta] = await con.query(comando, [
+            agendamento.categoria,
+            agendamento.procedimento,
+            agendamento.data,
+            id,
+        ]);
+        
+        return resposta.affectedRows;
+    } catch (error) {
+        throw new Error(`Erro ao alterar agendamento: ${error.message}`);
+    }
 }
 
 // Função para remover um agendamento
@@ -61,8 +81,12 @@ export async function removerAgendamento(id) {
         DELETE FROM tb_agendamentos 
         WHERE id_agendamentos = ?`;
     
-    const [resposta] = await con.query(comando, [id]);
-    return resposta.affectedRows;
+    try {
+        const [resposta] = await con.query(comando, [id]);
+        return resposta.affectedRows;
+    } catch (error) {
+        throw new Error(`Erro ao remover agendamento: ${error.message}`);
+    }
 }
 
 export async function confirmarAgendamento(id) {
@@ -71,6 +95,29 @@ export async function confirmarAgendamento(id) {
         SET confirmado = 1 
         WHERE id_agendamentos = ? AND confirmado = 0`; // Presumindo que há uma coluna 'confirmado'
     
-    const [resposta] = await con.query(comando, [id]);
-    return resposta.affectedRows > 0; // Retorna true se o agendamento foi confirmado
+    try {
+        const [resposta] = await con.query(comando, [id]);
+        return resposta.affectedRows > 0; // Retorna true se o agendamento foi confirmado
+    } catch (error) {
+        throw new Error(`Erro ao confirmar agendamento: ${error.message}`);
+    }
+}
+
+// Função para consultar todos os agendamentos
+export async function consultarTodosAgendamentos() {
+    const comando = `
+        SELECT 
+            id_agendamentos AS id, 
+            categoria, 
+            procedimento, 
+            data, 
+            (SELECT nome FROM tb_usuario WHERE id_usuario = tb_agendamentos.id_usuario) AS usuarioNome
+        FROM tb_agendamentos`;
+    
+    try {
+        const [registros] = await con.query(comando);
+        return registros;
+    } catch (error) {
+        throw new Error(`Erro ao consultar todos os agendamentos: ${error.message}`);
+    }
 }

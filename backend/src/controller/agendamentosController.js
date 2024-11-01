@@ -1,15 +1,19 @@
+import { autenticar } from '../utils/jwt.js';
+import * as db from '../repository/agendamentoRepository.js';
 import { Router } from 'express';
-import { autenticar } from '../utils/jwt.js'; // Certifique-se de que a função de autenticação está importada
-import * as db from '../repository/agendamentoRepository.js'; // Repositório de agendamentos
 
 const endpoints = Router();
 
-// Rota para agendar consulta
-endpoints.post('/agendamentos', autenticar, async (req, resp) => {
+// Obter todos os agendamentos do usuário logado
+endpoints.get('/agendamentos', autenticar, async (req, resp) => {
     try {
-        const agendamento = { ...req.body, idUsuario: req.user.id }; // Associa agendamento ao usuário logado
-        const id = await db.inserirAgendamento(agendamento);
-        resp.status(201).json({ novoId: id });
+        // Verifica se o usuário é admin
+        if (!req.user.isAdmin) {
+            return resp.status(403).json({ erro: "Acesso negado" });
+        }
+
+        const registros = await db.consultarTodosAgendamentos(); // Chama a função que busca todos os agendamentos
+        resp.json(registros);
     } catch (err) {
         resp.status(400).json({ erro: err.message });
     }
@@ -74,16 +78,35 @@ endpoints.delete('/agendamentos/:id', autenticar, async (req, resp) => {
     }
 });
 
-// Adicionar endpoint para confirmar consulta
-endpoints.post('/agendamentos/:id/confirmar', autenticar, async (req, resp) => {
+// Adicionar um novo endpoint para obter agendamentos por data
+endpoints.get('/agendamentos/data/:data', autenticar, async (req, resp) => {
     try {
-        const id = req.params.id;
-        const confirmacao = await db.confirmarAgendamento(id); // Você precisa implementar essa função no repositório
-        if (confirmacao) {
-            resp.sendStatus(204); // No Content
-        } else {
-            resp.status(404).json({ erro: 'Agendamento não encontrado ou já confirmado' });
-        }
+        const data = req.params.data;
+        const registros = await db.consultarAgendamentosPorData(data);
+        resp.json(registros);
+    } catch (err) {
+        resp.status(400).json({ erro: err.message });
+    }
+});
+
+// Adicionar um novo endpoint para obter agendamentos por status
+endpoints.get('/agendamentos/status/:status', autenticar, async (req, resp) => {
+    try {
+        const status = req.params.status;
+        const registros = await db.consultarAgendamentosPorStatus(status);
+        resp.json(registros);
+    } catch (err) {
+        resp.status(400).json({ erro: err.message });
+    }
+});
+
+// Adicionar um novo endpoint para obter agendamentos por data e status
+endpoints.get('/agendamentos/data/:data/status/:status', autenticar, async (req, resp) => {
+    try {
+        const data = req.params.data;
+        const status = req.params.status;
+        const registros = await db.consultarAgendamentosPorDataEStatus(data, status);
+        resp.json(registros);
     } catch (err) {
         resp.status(400).json({ erro: err.message });
     }

@@ -1,0 +1,43 @@
+.pagina-ver-consultas {
+    padding: 50px;
+
+    .acoes {
+        display: flex;
+        justify-content: end;
+        gap: 10px;
+        margin: 14px 0;
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF; // Cor do botão
+            color: white;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #0056b3; // Cor ao passar o mouse
+            }
+        }
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #f3f3f3;
+
+        th, td {
+            border: 1px solid transparent;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            font-size: 16px;
+        }
+
+        td {
+            padding: 8px;
+        }
+    }
+}
