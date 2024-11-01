@@ -24,7 +24,6 @@ const Rodape = ({ scrollToSection }) => {
         </div>
         <div className="item-rodape">
           <h3>Ajuda</h3>
-          <Link to="/faq">Ajuda (FAQ)</Link>
           <a href="https://whatsapp.com/channel/0029Vagr93P2kNFvuR2bQQ11">
             Ajuda WhatsApp
           </a>

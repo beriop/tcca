@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import './index.scss'; 
-import Rodape from '../../components/Rodape/Rodape';
-import Cabecalho from '../../components/Cabecalho/Cabecalho';
+import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import "./index.scss";
+import Rodape from "../../components/Rodape/Rodape";
+import Cabecalho from "../../components/Cabecalho/Cabecalho";
 
 export default function PaginaInicial() {
   const [selectedService, setSelectedService] = useState("Endodontia");
@@ -131,10 +131,16 @@ export default function PaginaInicial() {
           , <br /> prontos para oferecer o melhor cuidado.
         </p>
         <div className="grade-profissionais">
-          <div className="item-profissional">
+          <div
+            className="item-profissional"
+            data-info="Dr. Brunex"
+          >
             <img alt="Profissional 1" src="./assets/images/brunex.png" />
           </div>
-          <div className="item-profissional">
+          <div
+            className="item-profissional"
+            data-info="Dr. Lobo"
+          >
             <img alt="Profissional 2" src="./assets/images/lobox.png" />
           </div>
         </div>
