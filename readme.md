@@ -6,33 +6,35 @@ Nosso **foco** é fazermos o melhor possivel para que o TCC fique perfeito.
 
 ## Estrutura de Tabelas
 ```sql
-CREATE DATABASE HayanDB;
-USE HayanDB;
+create database if not exists hayandb;
+use hayandb;
 
-CREATE TABLE tb_usuario (
-    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(100) NOT NULL,
-    dt_nascimento DATE NOT NULL,
-    cpf VARCHAR(14) NOT NULL UNIQUE,
-    nm_celular VARCHAR(15) NOT NULL,
-    email VARCHAR(200) NOT NULL UNIQUE,
-    sexo ENUM('Masculino', 'Feminino') NOT NULL,
-    senha VARCHAR(255) NOT NULL
+-- criação da tabela de usuários
+create table if not exists tb_usuario (
+    id_usuario int primary key auto_increment,
+    nome varchar(100) not null,
+    dt_nascimento date not null,
+    cpf varchar(14) not null unique,
+    nm_celular varchar(15) not null,
+    email varchar(200) not null unique,
+    sexo enum('masculino', 'feminino') not null,
+    senha varchar(255) not null,
+    isAdmin boolean default false
 );
 
-CREATE TABLE tb_agendamentos (
-    id_agendamentos INT PRIMARY KEY AUTO_INCREMENT,
-    categoria VARCHAR(100) NOT NULL,
-    procedimento VARCHAR(200) NOT NULL,
-    data DATETIME NOT NULL,
-    id_usuario INT,
-    FOREIGN KEY (id_usuario) REFERENCES tb_usuario(id_usuario) ON DELETE CASCADE
+-- criação da tabela de agendamentos
+create table if not exists tb_agendamentos (
+    id_agendamentos int primary key auto_increment,
+    categoria varchar(100) not null,
+    procedimento varchar(200) not null,
+    data datetime not null,
+    id_usuario int,
+    foreign key (id_usuario) references tb_usuario(id_usuario) on delete cascade
 );
 
-SELECT * FROM tb_usuario;
-
+-- consultas de teste
 select * from tb_usuario;
-drop database HayanDB;
+select * from tb_agendamentos;
 ```
 
 ## Variaveis de Ambiente do Backend
