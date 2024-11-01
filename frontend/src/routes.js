@@ -1,5 +1,3 @@
-// src/Navigation.js
-
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import PaginaInicio from "./pages/PaginaInicio";
 import Consultas from "./pages/Consultas";

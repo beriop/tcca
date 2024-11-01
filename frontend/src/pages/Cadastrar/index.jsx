@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PhoneInput } from "react-international-phone";
 import { cpf as cpfValidator } from "cpf-cnpj-validator";
 import toast, { Toaster } from "react-hot-toast";
@@ -26,9 +26,24 @@ export default function Cadastrar() {
     }
   }, []);
 
+  const isAgeValid = (birthdate) => {
+    const birthDate = new Date(birthdate);
+    const today = new Date();
+    const age = today.getFullYear() - birthDate.getFullYear();
+    const hasBirthdayPassedThisYear = 
+      today.getMonth() > birthDate.getMonth() || 
+      (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+    return age > 18 || (age === 18 && hasBirthdayPassedThisYear);
+  };
+
   const salvarCadastro = async (e) => {
     e.preventDefault();
     const cpfLimpo = cpf.replace(/\D/g, "");
+
+    if (!isAgeValid(dtNascimento)) {
+      toast.error("Você precisa ter pelo menos 18 anos para se cadastrar.");
+      return;
+    }
 
     if (!cpfValidator.isValid(cpfLimpo)) {
       toast.error("CPF inválido!");
@@ -77,7 +92,7 @@ export default function Cadastrar() {
   const logout = () => {
     localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
-    navigate("/"); // Navegue para a página inicial após o logout
+    navigate("/");
   };
 
   return (
