@@ -25,7 +25,7 @@ export default function VerConsultas() {
 
     const buscarConsultas = async () => {
         try {
-            const response = await axios.get("http://localhost:5010/agendamentos", {
+            const response = await axios.get("http://4.172.207.208:3026/agendamentos", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

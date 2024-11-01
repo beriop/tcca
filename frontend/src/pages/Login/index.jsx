@@ -18,7 +18,7 @@ export default function Login() {
     const cpfLimpo = cpf.replace(/\D/g, ""); 
   
     try {
-      const response = await axios.post("http://localhost:5010/entrar", {
+      const response = await axios.post("http://4.172.207.208:3026/entrar", {
         cpf: cpfLimpo,
         email,
         senha,
