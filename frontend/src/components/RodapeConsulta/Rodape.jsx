@@ -20,14 +20,13 @@ const RodapeConsulta = () => {
         </div>
         <div className="item-rodape">
           <h3>Sobre a desenvolvedora</h3>
-          <Link to="/sobre">Quem somos</Link>
+          <Link to="/">Quem somos</Link>
         </div>
         <div className="item-rodape">
           <h3>Ajuda</h3>
           <a href="https://whatsapp.com/channel/0029Vagr93P2kNFvuR2bQQ11">
             Ajuda WhatsApp
           </a>
-          <Link to="/termos-telemedicina">Termos de Telemedicina</Link>
         </div>
       </div>
     </footer>

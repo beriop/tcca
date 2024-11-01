@@ -29,7 +29,6 @@ const Rodape = ({ scrollToSection }) => {
           <a href="https://whatsapp.com/channel/0029Vagr93P2kNFvuR2bQQ11">
             Ajuda WhatsApp
           </a>
-          <Link to="/termos-telemedicina">Termos de Telemedicina</Link>
         </div>
       </div>
     </footer>

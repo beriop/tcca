@@ -16,7 +16,6 @@ export default function Cadastrar() {
   const [sexo, setSexo] = useState("");
   const [senha, setSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
-  const [aceitoTermos, setAceitoTermos] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
@@ -168,18 +167,6 @@ export default function Cadastrar() {
               placeholder="Repita a senha"
               value={confirmarSenha}
               onChange={(e) => setConfirmarSenha(e.target.value)}
-              required
-            />
-          </div>
-          <div className="grupo-formulario termos-container">
-            <label htmlFor="terms">
-              Aceito os <Link to="#">termos de telemedicina</Link>
-            </label>
-            <input
-              type="checkbox"
-              id="terms"
-              checked={aceitoTermos}
-              onChange={(e) => setAceitoTermos(e.target.checked)}
               required
             />
           </div>
