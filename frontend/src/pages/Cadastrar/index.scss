@@ -1,7 +1,7 @@
 .container {
   text-align: center;
   margin-top: 50px;
-  padding: 20px; // Adicionando padding para dar espaço nas laterais
+  padding: 20px;
 }
 
 .container h1 {
@@ -24,8 +24,8 @@
 
 form {
   display: flex;
-  flex-direction: column; // Usando flexbox para alinhar os elementos verticalmente
-  align-items: center; // Centralizando os elementos
+  flex-direction: column;
+  align-items: center;
 }
 
 .grupo-formulario {
@@ -36,23 +36,23 @@ form {
 }
 
 .termos-container {
-  display: flex; // Apenas para o grupo de termos
-  align-items: center; // Alinha verticalmente ao centro
+  display: flex;
+  align-items: center;
 }
 
 .grupo-formulario input[type="checkbox"] {
-  margin-right: 10px; // Espaço entre a checkbox e o texto
-  width: auto; // Ajustando a largura da checkbox
+  margin-right: 10px;
+  width: auto;
 }
 
 .grupo-formulario label {
-  display: block; // Faz o rótulo ocupar toda a largura
-  margin-bottom: 5px; // Espaço entre o rótulo e o campo de entrada
+  display: block;
+  margin-bottom: 5px;
 }
 
 .phone-input-container {
-  display: flex; // Para o telefone
-  align-items: center; // Alinha verticalmente ao centro
+  display: flex;
+  align-items: center;
 }
 
 .grupo-formulario input,

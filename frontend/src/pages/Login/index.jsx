@@ -76,7 +76,6 @@ export default function Login() {
           onChange={(e) => setSenha(e.target.value)}
           required
         />
-        <a href="/recuperar-senha" className="forgot-password">Esqueceu a senha?</a>
         <button type="submit" className="login-button" disabled={loading}>
           {loading ? "Entrando..." : "Entrar"}
         </button>
