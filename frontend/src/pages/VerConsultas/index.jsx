@@ -3,23 +3,23 @@ import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from 'react-hot-toast';
 import axios from "axios";
 import CabecalhoUser from "../../components/UsuarioApenas/CabecalhoUser";
-import './index.scss'; // Importando o arquivo SCSS
+import './index.scss'; 
 
 export default function VerConsultas() {
     const navigate = useNavigate();
     const [consultas, setConsultas] = useState([]);
     const userId = localStorage.getItem("userId");
-    const isAdmin = localStorage.getItem("isAdmin") === "true"; // Verifica se o usuário é admin
-    const token = localStorage.getItem("token"); // Obtendo o token do localStorage
+    const isAdmin = localStorage.getItem("isAdmin") === "true"; 
+    const token = localStorage.getItem("token"); 
 
     useEffect(() => {
         if (!userId) {
-            navigate("/login"); // Redireciona para a página de login se não estiver logado
+            navigate("/login");
         } else if (!isAdmin) {
             toast.error("Você não tem permissão para acessar esta página.");
-            navigate("/"); // Redireciona se não for admin
+            navigate("/"); 
         } else {
-            buscarConsultas(); // Chama a função para buscar consultas
+            buscarConsultas();
         }
     }, [userId, isAdmin, navigate]);
 
@@ -27,7 +27,7 @@ export default function VerConsultas() {
         try {
             const response = await axios.get("http://localhost:5010/agendamentos", {
                 headers: {
-                    Authorization: `Bearer ${token}`, // Incluindo o token no cabeçalho
+                    Authorization: `Bearer ${token}`,
                 },
             });
             setConsultas(response.data);
