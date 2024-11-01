@@ -20,7 +20,9 @@ const Rodape = ({ scrollToSection }) => {
         </div>
         <div className="item-rodape">
           <h3>Sobre a desenvolvedora</h3>
-          <Link to="/sobre">Quem somos</Link>
+          <Link to="/" onClick={() => scrollToSection('quemSomosRef')}>
+            Quem Somos
+          </Link>
         </div>
         <div className="item-rodape">
           <h3>Ajuda</h3>

@@ -12,7 +12,7 @@ import setMinutes from "date-fns/setMinutes";
 
 const categoriasProcedimentos = [
   {
-    categoria: "Odontologia",
+    categoria: "Odontologia Geral",
     procedimentos: [
       "Avaliação Odontológica",
       "Limpeza Dental",
@@ -21,11 +21,34 @@ const categoriasProcedimentos = [
     ],
   },
   {
-    categoria: "Dermatologia",
+    categoria: "Ortodontia",
     procedimentos: [
-      "Consulta Dermatológica",
-      "Tratamento de Acne",
-      "Remoção de Manchas",
+      "Colocação de Aparelho",
+      "Ajuste de Aparelho",
+      "Consulta de Manutenção",
+    ],
+  },
+  {
+    categoria: "Endodontia",
+    procedimentos: [
+      "Tratamento de Canal",
+      "Retratamento Endodôntico",
+    ],
+  },
+  {
+    categoria: "Implantodontia",
+    procedimentos: [
+      "Implante Dentário",
+      "Enxerto Ósseo",
+      "Manutenção de Implante",
+    ],
+  },
+  {
+    categoria: "Prótese",
+    procedimentos: [
+      "Prótese Parcial",
+      "Prótese Total",
+      "Manutenção de Prótese",
     ],
   },
 ];
