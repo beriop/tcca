@@ -36,8 +36,23 @@ create table if not exists tb_agendamentos (
 select * from tb_usuario;
 select * from tb_agendamentos;
 ```
+## Criação ADM
+
 
 ## Variaveis de Ambiente do Backend
+```
+http://localhost:5010/admin
+
+{
+  "nome": "AdminUser",
+  "dtNascimento": "1980-01-01",
+  "cpf": "11111111111",
+  "nm_celular": "999999999",
+  "email": "admin@gmail.com",
+  "sexo": "Masculino",
+  "senha": "adm123"
+}
+```
 
 ```
 PORTA=5010
