@@ -30,10 +30,7 @@ const categoriasProcedimentos = [
   },
   {
     categoria: "Endodontia",
-    procedimentos: [
-      "Tratamento de Canal",
-      "Retratamento Endodôntico",
-    ],
+    procedimentos: ["Tratamento de Canal", "Retratamento Endodôntico"],
   },
   {
     categoria: "Implantodontia",
@@ -83,7 +80,7 @@ export default function Consulta() {
 
     try {
       const response = await axios.post(
-        "http://4.172.207.208:3026/agendamentos",
+        "http://localhost:5010/agendamentos",
         dadosAgendamento,
         {
           headers: {
@@ -95,11 +92,20 @@ export default function Consulta() {
         toast.success("Consulta confirmada com sucesso!");
       }
     } catch (error) {
-      console.log("Erro no backend:", error.response?.data);
-      toast.error(
-        "Erro ao confirmar consulta: " +
-          (error.response?.data?.erro || "Erro desconhecido")
-      );
+      if (
+        error.response &&
+        error.response.data.erro ===
+          "Você já tem uma consulta agendada. Cancele-a antes de agendar outra."
+      ) {
+        toast.error(
+          "Você já tem uma consulta agendada. Cancele-a antes de agendar outra."
+        );
+      } else {
+        toast.error(
+          "Erro ao confirmar consulta: " +
+            (error.response?.data?.erro || "Erro desconhecido")
+        );
+      }
     }
   };
 

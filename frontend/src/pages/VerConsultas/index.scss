@@ -39,5 +39,89 @@
         td {
             padding: 8px;
         }
+
+        button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 5px;
+            cursor: pointer;
+            color: white;
+
+            &:first-of-type {
+                background-color: #28a745;
+                &:hover {
+                    background-color: #218838;
+                }
+            }
+
+            &:last-of-type {
+                background-color: #dc3545;
+                &:hover {
+                    background-color: #c82333;
+                }
+            }
+        }
+    }
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-conteudo {
+    background-color: #fff;
+    padding: 20px;
+    width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    h2 {
+        margin-bottom: 10px;
+    }
+
+    label {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .modal-acoes {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+
+        button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+
+            &:first-of-type {
+                background-color: #28a745;
+                &:hover {
+                    background-color: #218838;
+                }
+            }
+
+            &:last-of-type {
+                background-color: #dc3545;
+                &:hover {
+                    background-color: #c82333;
+                }
+            }
+        }
     }
 }

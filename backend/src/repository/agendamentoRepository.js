@@ -37,6 +37,7 @@ export async function consultarAgendamentos(idUsuario) {
     }
 }
 
+
 export async function consultarAgendamentoPorId(id) {
     const comando = `
         SELECT id_agendamentos AS id, categoria, procedimento, data 
