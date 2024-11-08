@@ -50,17 +50,17 @@ export default function PaginaInicial() {
           block: "start",
         });
         break;
-      case "devBlackSpaceRef":
-        devBlackSpaceRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
       case "quemSomosRef":
         quemSomosRef.current.scrollIntoView({
           behavior: "smooth",
           block: "start",
         });
         break;
+        case "devBlackSpaceRef":
+          devBlackSpaceRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
       default:
         break;
     }
