@@ -16,12 +16,13 @@ export default function PaginaInicial() {
 
   const services = {
     "Endodontia (Canal)":
-      "Tratamento de canal para preservar a polpa do dente.",
-    Implante: "Substituição de dentes por implantes metálicos fixados no osso.",
-    Prótese: "Reposição de dentes para estética e funcionalidade.",
-    "Tratamento de Gengiva": "Prevenção e tratamento de doenças periodontais.",
-    Cirurgia: "Procedimentos bucomaxilofaciais para traumas e patologias.",
-    Radiografias: "Exames de imagem para diagnóstico bucal detalhado.",
+      "A Endodontia, popularmente conhecida como tratamento de canal, é a especialidade da odontologia que se dedica à prevenção e ao tratamento de doenças que afetam a polpa do dente.",
+    Implante:
+      "Implantodontia é um ramo da Odontologia que se destina ao tratamento do edentulismo com reabilitações protéticas suportadas ou retidas por implantes dentários. Com a Implantodontia são feitas desde reabilitações unitárias ate grandes reabilitações totais fixas ou removíveis.",
+    Prótese: "A prótese dentária é a arte dental, ciência que lida com a reposição de tecidos bucais, visando restaurar e manter a forma, função, aparência e saúde bucal. Aplicados à odontologia, são utilizados indistintamente os termos prostodontia e prótese dentária.",
+    "Tratamento de Gengiva": "O tratamento é focado em reduzir a inflamação local através de uma profilaxia (limpeza) que deve ser feita pelo dentista, removendo a placa bacteriana e qualquer outro resíduo alimentar. Essa remoção pode ser feita com instrumentos ultrassônicos, raspadores ou curetas.",
+    Cirurgia: "São consideradas cirurgias odontológicas todas as intervenções realizadas de forma manual, ou com auxílio de instrumentos, para tratar traumatismos e doenças que afetam os tecidos bucais, a arcada dentária e a face do paciente.",
+    Radiografias: "A radiografia odontológica (também conhecida como Raio-X odontológico) é um exame que utiliza doses seguras de radiação para a obtenção de imagens utilizadas em diagnósticos, no planejamento e no acompanhamento da evolução de um tratamento realizado por dentistas, cirurgiões e ortodontistas.",
   };
 
   useEffect(() => {
@@ -56,11 +57,11 @@ export default function PaginaInicial() {
           block: "start",
         });
         break;
-        case "devBlackSpaceRef":
-          devBlackSpaceRef.current.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
+      case "devBlackSpaceRef":
+        devBlackSpaceRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
       default:
         break;
     }
@@ -123,7 +124,10 @@ export default function PaginaInicial() {
       </section>
 
       <section
-        id="profissionais" className="profissionais" ref={profissionaisRef}>
+        id="profissionais"
+        className="profissionais"
+        ref={profissionaisRef}
+      >
         <h2>Profissionais</h2>
         <p>
           <span className="corProfi">Profissionais altamente qualificados</span>
@@ -133,7 +137,7 @@ export default function PaginaInicial() {
           <div className="item-profissional" data-info="Dr. Brunex">
             <img alt="Profissional 1" src="./assets/images/brunex.png" />
           </div>
-          <div className="item-profissional" data-info="Dr. Lobo">
+          <div className="item-profissional" data-info="Dr. Wolf">
             <img alt="Profissional 2" src="./assets/images/lobox.png" />
           </div>
         </div>

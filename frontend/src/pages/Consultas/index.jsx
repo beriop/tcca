@@ -147,7 +147,7 @@ export default function Consulta() {
           <p>
             <strong>Atendimento:</strong>
           </p>
-          <p>Atende a partir de 2 anos de idade. Todos os sexos.</p>
+          <p>Atende a partir de 18 anos de idade. Todos os sexos.</p>
         </div>
         <div className="right">
           <p>Qual categoria gostaria de fazer?</p>
