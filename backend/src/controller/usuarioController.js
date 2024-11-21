@@ -35,7 +35,7 @@ endpoints.get('/usuario/:id', autenticar, async (req, resp) => {
     try {
         const id = req.params.id;
         console.log('Buscando usuário com ID:', id);
-        const usuario = await db.consultarUsuarioPorId(id); 
+        const usuario = await db.consultarUsuarioPorId(id);
         console.log('Usuário encontrado:', usuario);
         if (usuario) {
             resp.json(usuario);
@@ -47,6 +47,19 @@ endpoints.get('/usuario/:id', autenticar, async (req, resp) => {
         resp.status(400).json({ erro: 'Erro ao carregar os dados do usuário.' });
     }
 });
+
+
+endpoints.put('/usuario/:id', autenticar, async (req, resp) => {
+    try {
+        const id = req.params.id;
+        const dados = req.body;
+        await db.atualizarUsuario(id, dados);
+        resp.status(200).send({ mensagem: 'Usuário atualizado com sucesso!' });
+    } catch (err) {
+        resp.status(400).json({ erro: err.message });
+    }
+});
+
 
 endpoints.post('/admin', async (req, resp) => {
     try {
