@@ -5,7 +5,6 @@ import { cpf as cpfValidator } from "cpf-cnpj-validator";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import "react-international-phone/style.css";
-import "./index.scss";
 
 export default function EditarUsuario() {
   const [nome, setNome] = useState("");

@@ -148,6 +148,10 @@ export default function Consulta() {
             <strong>Atendimento:</strong>
           </p>
           <p>Atende a partir de 18 anos de idade. Todos os sexos.</p>
+          <p>
+            <strong>Ajuda:</strong>
+          </p>
+          <p>Caso queira cancelar ou mudar a consulta, entre em contato pelo whatsapp.</p>
         </div>
         <div className="right">
           <p>Qual categoria gostaria de fazer?</p>
