@@ -26,7 +26,7 @@ export default function EditarUsuario() {
 
     const carregarUsuario = async () => {
       try {
-        const { data } = await axios.get(`http://4.172.207.208:3026/usuario/${userId}`, {
+        const { data } = await axios.get(`http://localhost:5010/usuario/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

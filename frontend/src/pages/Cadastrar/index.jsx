@@ -71,7 +71,7 @@ export default function Cadastrar() {
     };
 
     try {
-      const response = await axios.post("http://4.172.207.208:3026/usuario", dadosCadastro);
+      const response = await axios.post("http://localhost:5010/usuario", dadosCadastro);
       if (response.status === 201) {
         toast.success("Cadastro realizado com sucesso!");
         localStorage.setItem("isLoggedIn", "true");

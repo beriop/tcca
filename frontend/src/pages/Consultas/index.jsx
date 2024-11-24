@@ -80,7 +80,7 @@ export default function Consulta() {
 
     try {
       const response = await axios.post(
-        "http://4.172.207.208:3026/agendamentos",
+        "http://localhost:5010/agendamentos",
         dadosAgendamento,
         {
           headers: {
